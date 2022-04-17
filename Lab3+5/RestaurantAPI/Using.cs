@@ -1,0 +1,23 @@
+global using Npgsql.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore;
+global using System.ComponentModel.DataAnnotations;
+global using System.ComponentModel.DataAnnotations.Schema;
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Text;
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
+global using System.Threading.Tasks;
+global using Microsoft.AspNetCore.Mvc;
+
+global using RestaurantAPI;
+global using RestaurantAPI.Models;
+global using RestaurantAPI.Data;
+global using RestaurantAPI.Data.Models;
+global using RestaurantAPI.Data.Repositories;
+global using RestaurantAPI.Data.Interfaces;
+global using RestaurantAPI.Domain.Interfaces;
+global using RestaurantAPI.Domain.Models;
+global using RestaurantAPI.Services;
+// global using RestaurantAPI.Domain;

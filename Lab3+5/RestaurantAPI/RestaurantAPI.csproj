@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>RestaurnatAPI</RootNamespace>
+    <UserSecretsId>f26293dd-6114-42e9-8df1-787c736baa16</UserSecretsId>
+    <!-- <Nullable>enable</Nullable> -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestaurantAPI.Data\RestaurantAPI.Data.csproj" />
+    <ProjectReference Include="..\RestaurantAPI.Domain\RestaurantAPI.Domain.csproj" />
+    <ProjectReference Include="..\RestaurantAPI.Services\RestaurantAPI.Services.csproj" />
+  </ItemGroup>
+
+</Project>
