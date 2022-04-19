@@ -83,6 +83,7 @@ namespace RestaurantAPI.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     OrderId = table.Column<int>(type: "integer", nullable: false),
                     MealId = table.Column<int>(type: "integer", nullable: false),
+                    IsLarge = table.Column<bool>(type: "boolean", nullable: false),
                     Quantity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>

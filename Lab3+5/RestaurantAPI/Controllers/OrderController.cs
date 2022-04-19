@@ -60,7 +60,12 @@ public class OrderController : ControllerBase
 
         try
         {
-            await _orderService.ComposeOrderAsync(request.Meals, request.TableNumber);
+            var dict = new Dictionary<string, bool>();
+            request.Meals.ForEach(pair => {
+                dict.Add(pair.Name, pair.IsLarge);
+            });
+
+            await _orderService.ComposeOrderAsync(dict, request.TableNumber);
             return Ok();
         }
         catch (InvalidOperationException ex)

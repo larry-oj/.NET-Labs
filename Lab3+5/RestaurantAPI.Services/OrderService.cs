@@ -15,7 +15,7 @@ public class OrderService : IOrderService
 
         if (isActive != null)
         {
-            orders = orders.Where(o => o.Completed == isActive);
+            orders = orders.Where(o => o.Completed == !isActive);
         }
 
         var result = new List<Domain.Models.Order>();
@@ -30,7 +30,8 @@ public class OrderService : IOrderService
                 {
                     Name = meal.Name,
                     NormalPrice = meal.NormalPrice,
-                    LargePrice = meal.LargePrice
+                    LargePrice = meal.LargePrice,
+                    IsLarge = orderItem.IsLarge
                 };
                 menuItems.Add(menuItem);
             }
@@ -61,7 +62,8 @@ public class OrderService : IOrderService
             {
                 Name = meal.Name,
                 NormalPrice = meal.NormalPrice,
-                LargePrice = meal.LargePrice
+                LargePrice = meal.LargePrice,
+                IsLarge = orderItem.IsLarge
             };
             menuItems.Add(menuItem);
         }
@@ -75,13 +77,14 @@ public class OrderService : IOrderService
 
         return orderModel;
     }
-    public async Task ComposeOrderAsync(List<string> mealNames, int tableNum)
+    public async Task ComposeOrderAsync(Dictionary<string, bool> mealsAndSize, int tableNum)
     {
-        mealNames.ForEach(m => {
-            var meal = _uow.Meals.Find(m1 => m1.Name == m).FirstOrDefault();
+        foreach (var pair in mealsAndSize)
+        {
+            var meal = _uow.Meals.Find(m1 => m1.Name.ToLower() == pair.Key.ToLower()).FirstOrDefault();
             if (meal == default(Data.Models.Meal))
-                throw new ArgumentException($"Meal {m} does not exist");
-        });
+                throw new ArgumentException($"Meal {pair.Key} does not exist");
+        }
 
         var existingOrders = _uow.Orders.Find(o => o.TableNumber == tableNum && o.Completed == false);
         
@@ -96,16 +99,17 @@ public class OrderService : IOrderService
 
         await _uow.Orders.AddAsync(order);
 
-        foreach (var mealName in mealNames)
+        foreach (var pair in mealsAndSize)
         {
-            var meal = _uow.Meals.Find(m => m.Name.ToLower() == mealName.ToLower()).FirstOrDefault();
+            var meal = _uow.Meals.Find(m => m.Name.ToLower() == pair.Key.ToLower()).FirstOrDefault();
 
             if (meal == default(Data.Models.Meal)) continue; // lmao xd
 
             var orderItem = new Data.Models.OrderItem
             {
                 PricedMeal = meal,
-                Order = order
+                Order = order,
+                IsLarge = pair.Value
             };
             await _uow.OrderItems.AddAsync(orderItem);
         }

@@ -12,6 +12,8 @@ public class OrderItem
     [ForeignKey("MealId")]
     public virtual Meal PricedMeal { get; set; }
     [Required]
+    public bool IsLarge { get; set; }
+    [Required]
     [Range(1, 1000)]
     public int Quantity { get; set; }
 }

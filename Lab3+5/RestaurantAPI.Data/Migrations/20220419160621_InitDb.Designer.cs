@@ -12,7 +12,7 @@ using RestaurantAPI.Data;
 namespace RestaurantAPI.Data.Migrations
 {
     [DbContext(typeof(RestaurantDataContext))]
-    [Migration("20220416131158_InitDb")]
+    [Migration("20220419160621_InitDb")]
     partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,6 +119,9 @@ namespace RestaurantAPI.Data.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseSerialColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsLarge")
+                        .HasColumnType("boolean");
 
                     b.Property<int>("MealId")
                         .HasColumnType("integer");

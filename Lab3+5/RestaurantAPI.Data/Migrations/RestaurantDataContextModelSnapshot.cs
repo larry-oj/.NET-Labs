@@ -118,6 +118,9 @@ namespace RestaurantAPI.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseSerialColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("IsLarge")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("MealId")
                         .HasColumnType("integer");
 
